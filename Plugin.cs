@@ -15,7 +15,7 @@ namespace ForsakenPowersPlus
     public class ForsakenPowersPlusMod : BaseUnityPlugin
     {
         internal const string ModName = "ForsakenPowersPlus";
-        internal const string ModVersion = "1.3.0";
+        internal const string ModVersion = "1.3.2";
         internal const string Author = "TastyChickenLegs";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";

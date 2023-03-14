@@ -46,6 +46,16 @@ Config file will be generated in the Bepinex\Config folder.
 
 **Versions**
 
+
+-1.3.2
+
+no changes updated to newest version of Valheim
+
+
+- 1.3.1
+no changes.  Version bumpt to match Thunderstore.
+
+
 - 1.3.0
 
 ServerSync Added for multiplayer
