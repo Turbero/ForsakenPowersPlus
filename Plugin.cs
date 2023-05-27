@@ -15,7 +15,7 @@ namespace ForsakenPowersPlus
     public class ForsakenPowersPlusMod : BaseUnityPlugin
     {
         internal const string ModName = "ForsakenPowersPlus";
-        internal const string ModVersion = "1.3.2";
+        internal const string ModVersion = "1.3.3";
         internal const string Author = "TastyChickenLegs";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -33,8 +33,8 @@ namespace ForsakenPowersPlus
         public static ConfigEntry<bool> enabledReset;
         public static ConfigEntry<bool> enabledAllBosses;
         public static ConfigEntry<string> modKey;
-        public static ConfigEntry<KeyboardShortcut> ForsakenPowerHotkey;
-        public static ConfigEntry<KeyboardShortcut> ResetPowerHotkey;
+        public static ConfigEntry<KeyCode> ForsakenPowerHotkey;
+        public static ConfigEntry<KeyCode> ResetPowerHotkey;
         public static ConfigEntry<float> guardianBuffDuration;
         public static ConfigEntry<float> guardianBuffCooldown;
         public static ManualLogSource logger;
@@ -44,9 +44,9 @@ namespace ForsakenPowersPlus
         public static ConfigEntry<bool> enablepassivemode;
         public static ConfigEntry<bool> disableGui;
         public static ConfigEntry<bool> enableStacking;
-        public static ConfigEntry<KeyboardShortcut> StackingPowerHotkey;
+        public static ConfigEntry<KeyCode> StackingPowerHotkey;
         public static ConfigEntry<bool> enabledAllBossesAtOnce;
-        public static ConfigEntry<bool> configVerifyClient;
+        //public static ConfigEntry<bool> configVerifyClient;
         public static List<string> allBossesKilled;
         public enum Toggle
         {
@@ -70,11 +70,11 @@ namespace ForsakenPowersPlus
             , null, new  { Order = 4, DispName = "Enable Power Reset " }));
             
             
-            ForsakenPowerHotkey = config("General", "ForsakenPowerHotkey", new KeyboardShortcut(KeyCode.F8),
+            ForsakenPowerHotkey = config("General", "ForsakenPowerHotkey", KeyCode.F8,
                 new ConfigDescription("Key Used to toggle through powers"
             , null, new  { Order = 2, DispName = "Forsaken Power Hotkey" }));
 
-            ResetPowerHotkey = config("General", "ResetPowerHotkey", new KeyboardShortcut(KeyCode.F9),
+            ResetPowerHotkey = config("General", "ResetPowerHotkey", KeyCode.F9,
                 new ConfigDescription("Press to reset the cooldown of your Forsaken Power and use another Power.",
                 null, new  { Order = 3, DispName = "Reset Power HotKey" }));
 
@@ -96,7 +96,7 @@ namespace ForsakenPowersPlus
 
             enablepassivemode = config("Buff Changes", "Passive Mode - Overrides BuffChange", false, "Set the Power to never expire - Game Restart Required.  Overrides the enableBuffChange setting");
 
-            configVerifyClient = config("", "Verify Clients", false, "Disable this to turn off the client verification and version checks.");
+            //configVerifyClient = config("", "Verify Clients", false, "Disable this to turn off the client verification and version checks.");
             //disableGui = Config.Bind<bool>("Buff Changes", "Remove Powers from GUI", false, "Remove the Powers from the screen to declutter the interface.");
             //nexusID = Config.Bind<int>("General", "NexusID", 2067, new ConfigDescription("Nexus mod ID for updates", null, new ConfigurationManagerAttributes {ReadOnly=true }));
 
@@ -109,7 +109,7 @@ namespace ForsakenPowersPlus
         }
         private void OnDestroy()
         {
-            _harmony.UnpatchSelf(); 
+            //_harmony.UnpatchSelf(); 
             Config.Save();
         }
 
@@ -183,7 +183,7 @@ namespace ForsakenPowersPlus
             public override bool IsValid(object value) => true;
 
             public override string ToDescriptionString() =>
-                "# Acceptable values: " + string.Join(", ", KeyboardShortcut.AllKeyCodes);
+                "# Acceptable values: " + string.Join(", ", UnityInput.Current.SupportedKeyCodes);// KeyboardShortcut.AllKeyCodes);
         }
 
         #endregion
@@ -253,7 +253,8 @@ namespace ForsakenPowersPlus
                 {
                     if (powerKV.Value || enabledAllBossesAtOnce.Value)
                     {
-                        Traverse.Create(__instance.GetSEMan().AddStatusEffect(powerKV.Key, true));
+                        int pwrHash = powerKV.GetHashCode();
+                        Traverse.Create(__instance.GetSEMan().AddStatusEffect(pwrHash, true));
                         Debug.Log($"[{PluginName}] Applying {powerKV.Key} forsaken power.");
                     }
                 }
@@ -304,7 +305,7 @@ namespace ForsakenPowersPlus
                 }
                 if (enabledAllBosses.Value)
                 {
-                    if (Input.GetKeyDown(ForsakenPowerHotkey.Value.MainKey))
+                    if (Input.GetKeyDown(ForsakenPowerHotkey.Value))
                     {
                         GetPlayerGlobalKeys();
 
@@ -345,7 +346,7 @@ namespace ForsakenPowersPlus
                         }
                     }
                 }
-                else if (Input.GetKeyDown(ForsakenPowerHotkey.Value.MainKey))
+                else if (Input.GetKeyDown(ForsakenPowerHotkey.Value))
                 {
                     //get the number of bosses the player has beaten //
                     GetPlayerGlobalKeys();
@@ -491,7 +492,7 @@ namespace ForsakenPowersPlus
                     }
                 }
 
-                if (Input.GetKeyDown(ResetPowerHotkey.Value.MainKey))
+                if (Input.GetKeyDown(ResetPowerHotkey.Value))
 
                 {
                     // resets the active power and gets the player ready for a new power
@@ -501,11 +502,12 @@ namespace ForsakenPowersPlus
                     if (enabledReset.Value)
                     {
                         SEMan sem = Player.m_localPlayer.GetSEMan();
-                        List<string> removePowers = new List<string>();
+                        List<int> removePowers = new List<int>();
                         foreach (StatusEffect se in sem.GetStatusEffects())
                             if (se.name.StartsWith("GP_"))
-                                removePowers.Add(se.name);
-                        foreach (string power in removePowers)
+                                removePowers.Add(se.m_nameHash);
+                        
+                        foreach (int power in removePowers)
                         {
                             sem.RemoveStatusEffect(power, true);
                             Debug.Log($"[{PluginName}] Removed {power} forsaken power.");
@@ -518,10 +520,13 @@ namespace ForsakenPowersPlus
             private static void GetPlayerGlobalKeys()
             {
                 if (!((object)Player.m_localPlayer != null))
+                 
                 {
                     return;
                 }
+             
                 bossesDefeatedCount = 0;
+
 
                 // this is comparison of set bosses and bosses that have been beaten
                 // I had to do this because some mods use the defeated tag in the DB
@@ -529,19 +534,20 @@ namespace ForsakenPowersPlus
                 //Monstornomicon use defeated_oceankraken which threw off my key count
 
                 //first part gets a list of beaten bosses from the database//
+       
+                    List<string> getKeysFromDB = new List<string>();
+                    foreach (string globalKey in ZoneSystem.instance.GetGlobalKeys())
+                    {
+                        if (globalKey.StartsWith("defeated"))
+                            getKeysFromDB.Add(globalKey);
+                    }
+                    //possible values from the database are checked against //
+                    // a list defined above called keyPowers //
 
-                List<string> getKeysFromDB = new List<string>();
-                foreach (string globalKey in ZoneSystem.instance.GetGlobalKeys())
-                {
-                    if (globalKey.StartsWith("defeated"))
-                        getKeysFromDB.Add(globalKey);
-                }
-                //possible values from the database are checked against //
-                // a list defined above called keyPowers //
-
-                var output = keyPowers.Intersect(getKeysFromDB).Count();
-                // the total number of matching keys are added and sent back to the above routine //
-                bossesDefeatedCount = (int)output;
+                    var output = keyPowers.Intersect(getKeysFromDB).Count();
+                    // the total number of matching keys are added and sent back to the above routine //
+                    bossesDefeatedCount = (int)output;
+                
 
             }
         }
