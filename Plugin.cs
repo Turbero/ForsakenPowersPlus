@@ -15,7 +15,7 @@ namespace ForsakenPowersPlus
     public class ForsakenPowersPlusMod : BaseUnityPlugin
     {
         internal const string ModName = "ForsakenPowersPlus";
-        internal const string ModVersion = "1.3.3";
+        internal const string ModVersion = "1.3.7";
         internal const string Author = "TastyChickenLegs";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -198,6 +198,7 @@ namespace ForsakenPowersPlus
                     { "GP_Moder", false },
                     { "GP_Yagluth", false },
                     { "GP_Queen", false },
+                    { "GP_Fader", false },
         };
 
         //used to define the bosses for the check keys count //
@@ -210,6 +211,7 @@ namespace ForsakenPowersPlus
                     { "defeated_dragon"},
                     { "defeated_goblinking"},
                     { "defeated_queen"},
+                    { "defeated_fader"},
         };
 
         //Once the config file is changed, reload the settings and populate the datatables.
@@ -340,6 +342,11 @@ namespace ForsakenPowersPlus
                                 break;
 
                             case "GP_Queen":
+                                Player.m_localPlayer.SetGuardianPower("GP_Fader");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Fader Power Selected");
+                                break;
+
+                            case "GP_Fader":
                                 Player.m_localPlayer.SetGuardianPower("GP_Eikthyr");
                                 Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Eikthyr Power Selected");
                                 break;
@@ -450,6 +457,42 @@ namespace ForsakenPowersPlus
                                 break;
                         }
                     }
+                    else if (bossesDefeatedCount == 6)
+                    {
+                        switch (Player.m_localPlayer.GetGuardianPowerName())
+                        {
+                            case "GP_Eikthyr":
+                                Player.m_localPlayer.SetGuardianPower("GP_TheElder");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Elder Power Selected");
+                                break;
+
+                            case "GP_TheElder":
+                                Player.m_localPlayer.SetGuardianPower("GP_Bonemass");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Bonemass Power Selected");
+                                break;
+
+                            case "GP_Bonemass":
+                                Player.m_localPlayer.SetGuardianPower("GP_Moder");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Moder Power Selected");
+                                break;
+
+                            case "GP_Moder":
+                                Player.m_localPlayer.SetGuardianPower("GP_Yagluth");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Yagluth Power Selected");
+                                break;
+
+                            case "GP_Yagluth":
+                                Player.m_localPlayer.SetGuardianPower("GP_Queen");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Queen Power Selected");
+                                break;
+
+                            case "GP_Queen":
+                                Player.m_localPlayer.SetGuardianPower("GP_Eikthyr");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Eikthyr Power Selected");
+                                break;
+                        }
+                    }
+               
                     else
                     {
                         if (bossesDefeatedCount != 6)
@@ -485,6 +528,11 @@ namespace ForsakenPowersPlus
                                 break;
 
                             case "GP_Queen":
+                                Player.m_localPlayer.SetGuardianPower("GP_Fader");
+                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Fader Power Selected");
+                                break;
+
+                            case "GP_Fader":
                                 Player.m_localPlayer.SetGuardianPower("GP_Eikthyr");
                                 Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Eikthyr Power Selected");
                                 break;

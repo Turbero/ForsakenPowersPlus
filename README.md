@@ -10,7 +10,7 @@ Change the forsaken powers and modify the duration and cooldown.
 
 - Now with ServerSync - ability to turn off version check
 - Enable all bosses at once or just the ones you want.
-- complied with Mistland’s Final Release 0.212.7
+- complied with newest Valheim release 0.216.9
 - Complete rewrite of code
 - Able to cycle through the forsaken powers to chose which one to use
 - Can see all powers or just the one's you have earned
