@@ -10,7 +10,7 @@ Change the forsaken powers and modify the duration and cooldown.
 
 - Now with ServerSync - ability to turn off version check
 - Enable all bosses at once or just the ones you want.
-- complied with newest Valheim release 0.216.9
+- complied with Mistland’s Final Release 0.212.7
 - Complete rewrite of code
 - Able to cycle through the forsaken powers to chose which one to use
 - Can see all powers or just the one's you have earned
@@ -45,6 +45,28 @@ Config file will be generated in the Bepinex\Config folder.
 
 
 **Versions**
+
+- 1.3.7
+
+- Updated for Ashlands.  Fader added to code.
+
+- 1.3.6
+
+- updated for Valheim 0.271.22
+
+
+- 1.3.5
+
+Updated to work with Hildir's Request
+
+
+- 1.3.4
+
+updated to work with newest Valheim Version 216.9
+
+- 1.3.3
+
+no changes updated to newest version of Valheim 0.214.300
 
 
 -1.3.2
