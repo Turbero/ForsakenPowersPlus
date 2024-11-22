@@ -9,11 +9,9 @@ Idea credited back to them.
 Change the forsaken powers and modify the duration and cooldown.
 
 - Now with ServerSync - ability to turn off version check
-- Enable all bosses at once or just the ones you want.
-- complied with Mistland’s Final Release 0.212.7
 - Complete rewrite of code
 - Able to cycle through the forsaken powers to chose which one to use
-- Can see all powers or just the one's you have earned
+- Can only use the one's you have earned
 - Can change the durration and cooldown timers
 - Can reset current power and startt a new one - even stack powers
 
@@ -34,17 +32,27 @@ Config file will be generated in the Bepinex\Config folder.
 |---|---|---|
  |enabledMod |Default True|Enable this mod
  |enabledReset |Default True |Whether or not to enable resetting forsaken power
- |enabledAllBosses |Default False |Whether or not to enable usage of all the bosses or just the ones you have defeated
  |ForsakenPowerHotkey |Default is F8 |Key to Press to cycle between your Forsaken Powers
  |ResetPowerHotkey |Default is f9 |Key to Press to reset the cooldown of your Forsaken Power
  |enableBuffChange |Default is False |Enable changing BuffCooldown and Duration
  |guardianBuffCooldown |Default is 1200 |Boss buff cooldown (seconds) - Game Restart Required
  |guardianBuffDuration |Default is 300 |Boss buff duration (seconds) - Game Restart Required
  |enablepassivemode | Default False| Allows the powers to never run out.  Overrides cooldown and duration timers
- |enableAllBossesAtOnce | Default False| Allows all bosses to be fired at once|       
+     
 
 
 **Versions**
+
+- 4.4.0
+
+- Due to changes in the game, Bosses are now saved differently and features that allowed for players to use bosses not earned have been removed. If you have no defeated a boss then it will not be available in the game.
+more information is avaialble at my Discord in the Valheim modding channel. https://discord.gg/PQMXbUS6FH
+
+
+- 1.3.8
+
+- Updated for Bog Witch
+
 
 - 1.3.7
 

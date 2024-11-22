@@ -15,7 +15,7 @@ namespace ForsakenPowersPlus
     public class ForsakenPowersPlusMod : BaseUnityPlugin
     {
         internal const string ModName = "ForsakenPowersPlus";
-        internal const string ModVersion = "1.3.7";
+        internal const string ModVersion = "1.4.0";
         internal const string Author = "TastyChickenLegs";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -38,14 +38,13 @@ namespace ForsakenPowersPlus
         public static ConfigEntry<float> guardianBuffDuration;
         public static ConfigEntry<float> guardianBuffCooldown;
         public static ManualLogSource logger;
-        public static string PluginName = "ForsakenPowers";
+       // public static string PluginName = "ForsakenPowersPlus";
         public static ConfigEntry<bool> enableBuffChange;
-        public static ConfigEntry<int> nexusID;
         public static ConfigEntry<bool> enablepassivemode;
-        public static ConfigEntry<bool> disableGui;
-        public static ConfigEntry<bool> enableStacking;
-        public static ConfigEntry<KeyCode> StackingPowerHotkey;
-        public static ConfigEntry<bool> enabledAllBossesAtOnce;
+
+
+
+
         //public static ConfigEntry<bool> configVerifyClient;
         public static List<string> allBossesKilled;
         public enum Toggle
@@ -78,23 +77,16 @@ namespace ForsakenPowersPlus
                 new ConfigDescription("Press to reset the cooldown of your Forsaken Power and use another Power.",
                 null, new  { Order = 3, DispName = "Reset Power HotKey" }));
 
-            enabledAllBosses = config("General", "EnableAllBosses", false,
-                new ConfigDescription("Whether or not to enable usage of all the bosses or just the ones you have defeated",
-                null, new  { DispName = "Enable All Bosses" }));
-
-            enabledAllBossesAtOnce = config("General", "EnableAllBossesAtOnce", false,
-                new ConfigDescription("Enable usage of all the bosses at one time.",
-                null, new  { DispName = "Enable Activating All Bosses At Once" }));
             //enableBuffChange = Config.Bind("Buff Changes", "EnableBuffChanges - Overrides Passive", true, "Enable changing BuffCooldown and Duration.  Overrides the enablepassivemode setting");
-            guardianBuffCooldown = config("Buff Changes", "guardianBuffCoolDown (Restart Game)",
+            guardianBuffCooldown = config("Buff Changes", "guardianBuffCoolDown",
                 1200f, new ConfigDescription("Time before the next guardian power can be used.",
                 null, new  { DispName = "Guardian Buff Cooldown (Seconds)" }));
 
-            guardianBuffDuration = config("Buff Changes", "guardianBuffDuration (Restart Game)"
+            guardianBuffDuration = config("Buff Changes", "guardianBuffDuration"
                 , 300f, new ConfigDescription("Time in seconds the guardian power lasts.",
                 null, new  { DispName = "Guardian Buff Durration (Seconds)" }));
 
-            enablepassivemode = config("Buff Changes", "Passive Mode - Overrides BuffChange", false, "Set the Power to never expire - Game Restart Required.  Overrides the enableBuffChange setting");
+            enablepassivemode = config("Buff Changes", "Passive Mode - Overrides BuffChange", false, "Set the Power to never expire - Overrides the enableBuffChange setting");
 
             //configVerifyClient = config("", "Verify Clients", false, "Disable this to turn off the client verification and version checks.");
             //disableGui = Config.Bind<bool>("Buff Changes", "Remove Powers from GUI", false, "Remove the Powers from the screen to declutter the interface.");
@@ -205,6 +197,7 @@ namespace ForsakenPowersPlus
 
         public static List<string> keyPowers = new List<string>()
         {
+                   // { "GP_Eikthyr"},
                     { "defeated_eikthyr"},
                     { "defeated_gdking"},
                     { "defeated_bonemass"},
@@ -241,23 +234,6 @@ namespace ForsakenPowersPlus
                         se.m_ttl = 0f;
                         se.m_cooldown = 0f;
                         //  logger.LogInfo($"[{PluginName}] Made {se.name} status effect passive.");
-                    }
-                }
-            }
-        }
-
-        [HarmonyPatch(typeof(Player), "StartGuardianPower")]
-        internal class Patch_Player_StartGuardianPower
-        {
-            private static void Prefix(ref Player __instance)
-            {
-                foreach (var powerKV in powers)
-                {
-                    if (powerKV.Value || enabledAllBossesAtOnce.Value)
-                    {
-                        int pwrHash = powerKV.GetHashCode();
-                        Traverse.Create(__instance.GetSEMan().AddStatusEffect(pwrHash, true));
-                        Debug.Log($"[{PluginName}] Applying {powerKV.Key} forsaken power.");
                     }
                 }
             }
@@ -305,55 +281,9 @@ namespace ForsakenPowersPlus
                 {
                     return;
                 }
-                if (enabledAllBosses.Value)
-                {
-                    if (Input.GetKeyDown(ForsakenPowerHotkey.Value))
-                    {
-                        GetPlayerGlobalKeys();
-
-                        logger.LogInfo(Player.m_localPlayer.GetGuardianPowerName());
-                        switch (Player.m_localPlayer.GetGuardianPowerName())
-                            
-                        {
-                            
-                            case "GP_Eikthyr":
-                                Player.m_localPlayer.SetGuardianPower("GP_TheElder");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Elder Power Selected");
-                                break;
-
-                            case "GP_TheElder":
-                                Player.m_localPlayer.SetGuardianPower("GP_Bonemass");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Bonemass Power Selected");
-                                break;
-
-                            case "GP_Bonemass":
-                                Player.m_localPlayer.SetGuardianPower("GP_Moder");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Moder Power Selected");
-                                break;
-
-                            case "GP_Moder":
-                                Player.m_localPlayer.SetGuardianPower("GP_Yagluth");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Yagluth Power Selected");
-                                break;
-
-                            case "GP_Yagluth":
-                                Player.m_localPlayer.SetGuardianPower("GP_Queen");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "The Queen Power Selected");
-                                break;
-
-                            case "GP_Queen":
-                                Player.m_localPlayer.SetGuardianPower("GP_Fader");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Fader Power Selected");
-                                break;
-
-                            case "GP_Fader":
-                                Player.m_localPlayer.SetGuardianPower("GP_Eikthyr");
-                                Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Eikthyr Power Selected");
-                                break;
-                        }
-                    }
-                }
-                else if (Input.GetKeyDown(ForsakenPowerHotkey.Value))
+                
+                
+                if (Input.GetKeyDown(ForsakenPowerHotkey.Value))
                 {
                     //get the number of bosses the player has beaten //
                     GetPlayerGlobalKeys();
@@ -495,7 +425,7 @@ namespace ForsakenPowersPlus
                
                     else
                     {
-                        if (bossesDefeatedCount != 6)
+                        if (bossesDefeatedCount != 7)
                         {
                             return;
                         }
@@ -545,7 +475,12 @@ namespace ForsakenPowersPlus
                 {
                     // resets the active power and gets the player ready for a new power
                     Player.m_localPlayer.m_guardianPowerCooldown = 0.1f;
-                    Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Forsaken Power Has Been Reset");
+                    
+                    if (enabledReset.Value)
+                        Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Forsaken Power Has Been Reset");
+                    else
+                        Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Ready To Stack Another Power");
+
 
                     if (enabledReset.Value)
                     {
@@ -558,7 +493,7 @@ namespace ForsakenPowersPlus
                         foreach (int power in removePowers)
                         {
                             sem.RemoveStatusEffect(power, true);
-                            Debug.Log($"[{PluginName}] Removed {power} forsaken power.");
+                            Debug.Log($"[{ModName}] Removed {power} forsaken power.");
                         }
                     }
                 }
@@ -582,20 +517,40 @@ namespace ForsakenPowersPlus
                 //Monstornomicon use defeated_oceankraken which threw off my key count
 
                 //first part gets a list of beaten bosses from the database//
-       
-                    List<string> getKeysFromDB = new List<string>();
-                    foreach (string globalKey in ZoneSystem.instance.GetGlobalKeys())
-                    {
-                        if (globalKey.StartsWith("defeated"))
-                            getKeysFromDB.Add(globalKey);
-                    }
-                    //possible values from the database are checked against //
-                    // a list defined above called keyPowers //
 
-                    var output = keyPowers.Intersect(getKeysFromDB).Count();
-                    // the total number of matching keys are added and sent back to the above routine //
-                    bossesDefeatedCount = (int)output;
-                
+                List<string> getKeysFromDB = new List<string>();
+                //foreach (string playerKey in Player.m_localPlayer.GetUniqueKeys())
+                    foreach (string playerKey in ZoneSystem.m_instance.GetGlobalKeys())
+                    {
+                    //if (globalKey.StartsWith("defeated"))
+                    getKeysFromDB.Add(playerKey);
+                }
+                //possible values from the database are checked against //
+                // a list defined above called keyPowers //
+                //using (List<string>.Enumerator enumerator = ZoneSystem.m_instance..GetEnumerator())
+                //{
+                //    while (enumerator.MoveNext())
+                //    {
+                //        if (enumerator.Current.StartsWith("defeated"))
+                //        {
+                //            bossesDefeatedCount++;
+                           
+                //        }
+                //    }
+                //}
+                //if ((bool)Player.m_localPlayer)
+                //{
+                //    using (list<string>, globalKeys = Player.m_localPlayer.GetUniqueKeys()) ;
+                //    args.Context.AddString($"Player Keys: {globalKeys.Count}");
+                //    foreach (string item4 in globalKeys)
+                //    {
+                //        args.Context.AddString("  " + item4);
+                //    }
+                //}
+                var output = keyPowers.Intersect(getKeysFromDB).Count();
+                //    // the total number of matching keys are added and sent back to the above routine //
+                bossesDefeatedCount = (int)output;
+
 
             }
         }
