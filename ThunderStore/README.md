@@ -43,7 +43,11 @@ Config file will be generated in the Bepinex\Config folder.
 
 **Versions**
 
-- 4.4.0
+- 1.4.1
+
+Updated server sync in mod.
+
+- 1.4.0
 
 - Due to changes in the game, Bosses are now saved differently and features that allowed for players to use bosses not earned have been removed. If you have no defeated a boss then it will not be available in the game.
 more information is avaialble at my Discord in the Valheim modding channel. https://discord.gg/PQMXbUS6FH
