@@ -6,3 +6,4 @@ riderModule.iml
 .idea/
 .vs/
 *.sln.DotSettings.user
+/MODGEN/*.dll

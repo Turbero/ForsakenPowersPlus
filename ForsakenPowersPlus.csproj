@@ -36,6 +36,14 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" (powershell Compress-Archive -Path '$(SolutionDir)MODGEN\*' -DestinationPath '$(SolutionDir)MODGEN\$(ProjectName).zip' -Force)
+if "$(ConfigurationName)" == "Debug" del "$(TargetPath).mdb"
+if "$(ConfigurationName)" == "Debug" "$(SolutionDir)pdb2mdb.exe" "$(TargetPath)"
+if "$(ConfigurationName)" == "Debug" del "$(SolutionDir)MODGEN\*.dll"
+if "$(ConfigurationName)" == "Debug" xcopy "$(TargetPath)" "$(SolutionDir)MODGEN"
+</PostBuildEvent>
+  </PropertyGroup>
   <Choose>
     <When Condition="($(OS) == 'Unix' OR $(OS) == 'OSX') AND $(GamePath) == ''">
       <PropertyGroup>
@@ -113,11 +121,11 @@
     <Content Include="Libs\ServerSync.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="LICENSE.txt" />
     <Content Include="MODGEN\CHANGELOG.md" />
     <Content Include="MODGEN\icon.png" />
     <Content Include="MODGEN\manifest.json" />
     <Content Include="MODGEN\README.md" />
+    <Content Include="pdb2mdb.exe" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
