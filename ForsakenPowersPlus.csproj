@@ -7,8 +7,8 @@
     <ProjectGuid>{4358610B-F3F4-4843-B7AF-98B7BC60DCDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ForsakenPowersPlus</RootNamespace>
-    <AssemblyName>ForsakenPowersPlus</AssemblyName>
+    <RootNamespace>ForsakenPowersPlusRemastered</RootNamespace>
+    <AssemblyName>ForsakenPowersPlusRemastered</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>7.3</LangVersion>
