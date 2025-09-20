@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+## 2.0.1
+
+* Added config option to allow activating all available player powers at once
+
 ## 2.0.0
 
 New remastered release. Summary of features:

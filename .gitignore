@@ -7,3 +7,4 @@ riderModule.iml
 .vs/
 *.sln.DotSettings.user
 /MODGEN/*.dll
+/MODGEN/*.zip
