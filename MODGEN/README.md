@@ -20,7 +20,7 @@ To Stack Powers do the Following
 
 In the options disable "enable reset"
 Hit F and activate your power
-HIt F9 to reset the power - Resetting just does not turn off the old power it just allows for a new one.
+Hit F9 to reset the power (it will remove active powers)
 Hit F8 to cycle through the powers to select a new power
 Hit F to start the new power. They are now stacked as in the image
 ```
@@ -28,17 +28,17 @@ Hit F to start the new power. They are now stacked as in the image
 Install the mod into your Bepinex\Plugins and start the game.
 Config file will be generated in the Bepinex\Config folder.
 
-| Config Option        | Default Value                          | Definition                                                                  |
-|----------------------|----------------------------------------|-----------------------------------------------------------------------------|
-| ForsakenPowerHotkey  | Default is F8                          | Key to Press to cycle between your Forsaken Powers                          |
-| ResetPowerHotkey     | Default is f9                          | Key to Press to reset the cooldown of your Forsaken Power                   |
-| enabledReset         | Default True                           | Whether or not to enable resetting forsaken power                           |
-| guardianBuffCooldown | Default is 1200                        | Boss buff cooldown (seconds) - Game Restart Required                        |
-| guardianBuffDuration | Default is 300                         | Boss buff duration (seconds) - Game Restart Required                        |
-| enablePassiveMode    | Default False                          | Allows the powers to never run out.  Overrides cooldown and duration timers |
-| messagePowerSelected | Default "Power Selected"               | Sets the translation for 'Power Selected' message                           |
-| messagePowerReset    | Default "Forsaken Power Has Been Reset"| Sets the translation for 'Forsaken Power Has Been Reset' message            |
-| messagePowerReady    | Default "Ready To Stack Another Power" | Sets the translation for 'Ready To Stack Another Power' message"            |
+| Config Option        | Default Value                           | Definition                                                                 |
+|----------------------|-----------------------------------------|----------------------------------------------------------------------------|
+| ForsakenPowerHotkey  | Default is F8                           | Key to Press to cycle between your Forsaken Powers                         |
+| ResetPowerHotkey     | Default is F9                           | Key to Press to reset the cooldown of your Forsaken Power                  |
+| enabledReset         | Default True                            | Whether or not to enable resetting forsaken power                          |
+| guardianBuffCooldown | Default is 1200                         | Boss buff cooldown (seconds)                                               |
+| guardianBuffDuration | Default is 300                          | Boss buff duration (seconds)                                               |
+| enablePassiveMode    | Default False                           | Allows the powers to never run out. Overrides cooldown and duration timers |
+| messagePowerSelected | Default "Power Selected"                | Sets the translation for 'Power Selected' message                          |
+| messagePowerReset    | Default "Forsaken Power Has Been Reset" | Sets the translation for 'Forsaken Power Has Been Reset' message           |
+| messagePowerReady    | Default "Ready To Stack Another Power"  | Sets the translation for 'Ready To Stack Another Power' message            |
 
 # About myself
 
