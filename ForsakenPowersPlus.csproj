@@ -122,10 +122,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="LICENSE.txt" />
+    <Content Include="ThunderStore\ForsakenPowersPlus.dll" />
+    <Content Include="ThunderStore\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="README.md" />
+    <None Include="ThunderStore\ForsakenPowersPlus.zip" />
+    <None Include="ThunderStore\manifest.json" />
+    <None Include="ThunderStore\README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

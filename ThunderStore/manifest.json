@@ -1,7 +1,7 @@
 {
   "name": "ForsakenPowersPlus",
   "description": "Updated for Bog Witch. Enable any boss you have earned. Now with Passive Mode and Power Stacking.  Change the forsaken powers with a button and modify the duration and cooldown",
-  "version_number": "1.4.0",
+  "version_number": "1.4.1",
   "website_url": "https://discord.gg/PQMXbUS6FH",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2101"
