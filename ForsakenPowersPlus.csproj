@@ -108,6 +108,7 @@ if "$(ConfigurationName)" == "Debug" xcopy "$(TargetPath)" "$(SolutionDir)MODGEN
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BossesGameConfiguration.cs" />
+    <Compile Include="ForsakenPowerAllAtOncePatch.cs" />
     <Compile Include="ForsakenPowerPlayerUpdatePatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

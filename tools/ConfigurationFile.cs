@@ -22,6 +22,7 @@ namespace ForsakenPowersPlusRemastered.tools
         public static ConfigEntry<KeyCode> ResetPowerHotkey;
         public static ConfigEntry<float> guardianBuffDuration;
         public static ConfigEntry<float> guardianBuffCooldown;
+        public static ConfigEntry<Toggle> enableAllAtOnceMode;
         public static ConfigEntry<Toggle> enablePassiveMode;
         public static ConfigEntry<string> messagePowerSelected;
         public static ConfigEntry<string> messagePowerReset;
@@ -70,6 +71,7 @@ namespace ForsakenPowersPlusRemastered.tools
                 guardianBuffDuration = config("3 - Buff Changes", "guardianBuffDuration"
                     , 300f, new ConfigDescription("Time in seconds the guardian power lasts.",
                     null, new  { DispName = "Guardian Buff Duration (Seconds)" }));
+                enableAllAtOnceMode = config("3 - Buff Changes", "Enable All Buffs At Once Mode", Toggle.Off, "Allows to activate all powers available at once with Alt+F (default = Off)");
                 enablePassiveMode = config("3 - Buff Changes", "Passive Mode - Overrides BuffChange", Toggle.Off, "Set the Power to never expire - Overrides the enableBuffChange setting");
                 messagePowerSelected = config("4 - Translations", "Translation - Power Selected", "Power Selected", "'Power Selected' translated message");
                 messagePowerReset = config("4 - Translations", "Translation - Power Reset", "Forsaken Power Has Been Reset", "'Forsaken Power Has Been Reset' translated message");
