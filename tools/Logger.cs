@@ -1,7 +1,7 @@
 ﻿using BepInEx.Logging;
 using UnityEngine;
 
-namespace ForsakenPowersPlus
+namespace ForsakenPowersPlusRemastered.tools
 {
     public static class Logger
     {

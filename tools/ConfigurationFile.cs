@@ -4,7 +4,7 @@ using BepInEx;
 using ServerSync;
 using UnityEngine;
 
-namespace ForsakenPowersPlus
+namespace ForsakenPowersPlusRemastered.tools
 {
     public enum Toggle
     {

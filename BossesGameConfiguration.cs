@@ -1,4 +1,6 @@
-namespace ForsakenPowersPlus
+using ForsakenPowersPlusRemastered.tools;
+
+namespace ForsakenPowersPlusRemastered
 {
 
     public class BossesGameConfiguration

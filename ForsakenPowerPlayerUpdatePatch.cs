@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 using System.Linq;
+using ForsakenPowersPlusRemastered.tools;
+using Logger = ForsakenPowersPlusRemastered.tools.Logger;
 
-namespace ForsakenPowersPlus
+namespace ForsakenPowersPlusRemastered
 {
 
     public enum BossPowerEnum

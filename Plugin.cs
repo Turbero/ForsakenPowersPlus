@@ -1,7 +1,8 @@
 ﻿using BepInEx;
+using ForsakenPowersPlusRemastered.tools;
 using HarmonyLib;
 
-namespace ForsakenPowersPlus
+namespace ForsakenPowersPlusRemastered
 {
     [BepInPlugin(ModGUID, ModName, ModVersion)]
     public class ForsakenPowersPlusMod : BaseUnityPlugin
