@@ -36,7 +36,7 @@ namespace ForsakenPowersPlusRemastered
             {
                 BossPowerEnum nextAvailablePower = findNextAvailablePower(player);
                 player.SetGuardianPower(nextAvailablePower.ToString());
-                player.Message(MessageHud.MessageType.Center, $"{nextAvailablePower.ToString().Replace("GP_", "")} {ConfigurationFile.messagePowerSelected.Value}");
+                player.Message(MessageHud.MessageType.Center, $"{ConfigurationFile.messagePowerSelected.Value}: {nextAvailablePower.ToString().Replace("GP_", "")}");
             }
 
             if (Input.GetKeyDown(ConfigurationFile.ResetPowerHotkey.Value) && hasAnyPower)
