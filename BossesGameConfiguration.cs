@@ -8,7 +8,7 @@ namespace ForsakenPowersPlusRemastered
         // used to define the bosses to activate all power in passive mode //
         public static void ChangePassiveMode()
         {
-            if (ConfigurationFile.enablePassiveMode.Value == ConfigurationFile.Toggle.Off)
+            if (ConfigurationFile.enablePassiveMode.Value == ConfigurationFile.TogglePassive.Off)
             {
                 //if not passive mode then allow the user to cancel the power
                 foreach (StatusEffect se in ObjectDB.instance.m_StatusEffects)

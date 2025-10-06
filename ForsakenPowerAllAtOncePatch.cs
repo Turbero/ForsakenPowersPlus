@@ -13,6 +13,21 @@ namespace ForsakenPowersPlusRemastered
         
         public static bool Prefix(ref Player __instance)
         {
+            if (ConfigurationFile.enablePassiveMode.Value != ConfigurationFile.TogglePassive.OnMultiple)
+            {
+                //Clear previous passive buffs
+                List<StatusEffect> statusEffectsToDelete = new List<StatusEffect>();
+                
+                SEMan seMan = Player.m_localPlayer.GetSEMan();
+                foreach (StatusEffect se in seMan.GetStatusEffects())
+                    if (se.name.StartsWith("GP_") || se.name.StartsWith("SE_Boss"))
+                        statusEffectsToDelete.Add(se);
+
+                Logger.Log("statusEffectsToDelete: "+statusEffectsToDelete.Count);
+                foreach (StatusEffect se in statusEffectsToDelete)
+                    seMan.RemoveStatusEffect(se);
+            }
+            
             Logger.Log("Detect alt");
             altAtStart = Input.GetKey(KeyCode.LeftAlt);
             Logger.Log("Alt " + altAtStart);
