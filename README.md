@@ -14,6 +14,7 @@ Change the forsaken powers and modify the duration and cooldown.
 - Can only use the one's you have earned
 - Can change the duration and cooldown timers
 - Can reset current power and start a new one - even stack powers
+- Can use all powers at once with <b>Alt+F</b> (if config option is enabled)
 
 ```
 To Stack Powers do the Following
