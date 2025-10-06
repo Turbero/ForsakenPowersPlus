@@ -10,7 +10,7 @@ namespace ForsakenPowersPlusRemastered
         public const string Author = "Turbero";
         public const string ModGUID = Author+".ForsakenPowersPlusRemastered";
         public const string ModName = "Forsaken Powers Plus Remastered";
-        public const string ModVersion = "2.0.1"; 
+        public const string ModVersion = "2.0.2"; 
         
         private readonly Harmony harmony = new Harmony(ModGUID);
 

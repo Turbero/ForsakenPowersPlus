@@ -1,5 +1,10 @@
 ### CHANGELOG
 
+## 2.0.2
+
+* Added new option to enablePassiveMode option called "OnMultiple" to allow using multiple passive power buffs at once. To have just one maximum, use "On" value.
+* Fixed little mess with messagePowerSelected config option
+
 ## 2.0.1
 
 * Added config option to allow activating all available player powers at once
